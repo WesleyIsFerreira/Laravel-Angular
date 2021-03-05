@@ -17,6 +17,9 @@ import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
 import { PostDialogComponent } from './post-dialog/post-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { FormsModule } from '@angular/forms';
     PostDialogComponent
   ],
   imports: [
+    MatBadgeModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,

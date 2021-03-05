@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Post } from './post';
 import { PostDialogComponent } from './post-dialog/post-dialog.component';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
@@ -10,20 +11,17 @@ import { PostDialogComponent } from './post-dialog/post-dialog.component';
 })
 export class AppComponent {
   title = 'my-app';
-  public posts: Post[] = [
-    new Post("Wesley", "Meu post", "Coisa de loco bixo", "wdias9122@gmail.com", "Esse dia foi épico"),
-    new Post("Maria", "Meu post 2", "Oloquinho meu", "maria@gmail.com", "Esse dia foi loco"),
-    new Post("Wesley", "Meu post", "Coisa de loco bixo", "wdias9122@gmail.com", "Esse dia foi épico"),
-    new Post("Maria", "Meu post 2", "Oloquinho meu", "maria@gmail.com", "Esse dia foi loco"),
-    new Post("Wesley", "Meu post", "Coisa de loco bixo", "wdias9122@gmail.com", "Esse dia foi épico"),
-    new Post("Maria", "Meu post 2", "Oloquinho meu", "maria@gmail.com", "Esse dia foi loco"),
-    new Post("Wesley", "Meu post", "Coisa de loco bixo", "wdias9122@gmail.com", "Esse dia foi épico"),
-    new Post("Maria", "Meu post 2", "Oloquinho meu", "maria@gmail.com", "Esse dia foi loco"),
-    new Post("Ricardo", "Meu post 3", "Coisa de loco bixo", "ricardo@gmail.com", "Esse dia foi xato")
-  ];
+  public posts: Post[];
 
-  constructor(public dialog: MatDialog){
+  constructor(
+    public dialog: MatDialog,
+    public postservice: PostService
+    ){
 
+  }
+
+  ngOnInit(){
+    this.posts = this.postservice.posts;
   }
 
   openDialog(){
@@ -34,7 +32,7 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          console.log(result);
+          this.postservice.salvar(result.post, result.arquivo);
         }
       }
     );
